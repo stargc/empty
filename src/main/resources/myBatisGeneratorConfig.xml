@@ -10,7 +10,7 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://49.7.59.236:3306/dl_drmp_dev"
+                        connectionURL="jdbc:mysql://49.7.59.236:3306/dl_user_finally"
                         userId="root"
                         password="cwovEll__">
         </jdbcConnection>
@@ -33,7 +33,8 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="t_dl_cascade_cata" domainObjectName="CascadeBase"
+
+        <table tableName="t_dl_user_role_rel" domainObjectName="UserRoleRel"
                enableSelectByPrimaryKey="true"
                enableSelectByExample="true"
                enableCountByExample="true"

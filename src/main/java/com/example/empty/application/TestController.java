@@ -42,4 +42,16 @@ public class TestController {
         return testStrategy.restTest(phone);
     }
 
+    @GetMapping("/cacheTest/{key}")
+    public String cacheTest(@PathVariable String key) {
+        log.info("do cacheTest");
+        return testStrategy.cacheTest(key);
+    }
+
+    @GetMapping("/cachePutTest/{key}")
+    public String cachePutTest(@PathVariable String key) {
+        log.info("do cachePutTest");
+        return testStrategy.cachePutTest(key);
+    }
+
 }

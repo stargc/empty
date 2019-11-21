@@ -18,14 +18,14 @@ import java.util.stream.Stream;
 public class RedisValueService {
 
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate redisTemplate;
 
     /***
      * 字符型存储
      * @param key
      * @param value
      */
-    public void setValue(String key, String value) {
+    public void setValue(String key, Object value) {
         ValueOperations valueOperations = redisTemplate.opsForValue();
         valueOperations.set(key, value);
     }

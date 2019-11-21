@@ -3,118 +3,84 @@ package com.example.empty.configuration;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.MapPropertySource;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.RedisSentinelConfiguration;
+import org.springframework.data.redis.connection.RedisNode;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPoolConfig;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
-@Slf4j
 @Configuration
+@ConditionalOnClass(JedisCluster.class)
 public class RedisConfig {
-    @Value("${redis.cluster.nodes}")
-    private String clusterNodes;
 
-    // Redis服务器地址
-    @Value("${redis.host}")
-    private String host;
-    // Redis服务器连接端口
-    @Value("${redis.port}")
-    private int port;
-    // Redis服务器连接密码（默认为空）
-    @Value("${redis.password}")
-    private String password;
-    // 连接超时时间（毫秒）
-    @Value("${redis.timeout}")
-    private int timeout;
-    // Redis数据库索引（默认为0）
-    @Value("${redis.database}")
-    private int database;
-    // 连接池最大连接数（使用负值表示没有限制）
-    @Value("${redis.pool.max-active}")
-    private int maxTotal;
-    // 连接池最大阻塞等待时间（使用负值表示没有限制）
-    @Value("${redis.pool.max-wait}")
-    private int maxWaitMillis;
-    // 连接池中的最大空闲连接
-    @Value("${redis.pool.max-idle}")
-    private int maxIdle;
-    // 连接池中的最小空闲连接
-    @Value("${redis.pool.min-idle}")
-    private int minIdle;
-
-    @Bean(name = "jedisClusterConfig")
-    public RedisClusterConfiguration getClusterConfiguration()
-    {
-        Map<String, Object> source = new HashMap<String, Object>();
-        source.put("spring.redis.cluster.nodes", clusterNodes);
-        source.put("spring.redis.cluster.timeout", timeout);
-        source.put("spring.redis.cluster.max-redirects", 5);
-
-        return new RedisClusterConfiguration(new MapPropertySource("RedisClusterConfiguration", source));
-    }
+    @Resource
+    private RedisProperties redisProperties;
 
     /**
-     * 配置JedisPoolConfig
-     * @return JedisPoolConfig实体
+     * 配置 Redis 连接池信息
      */
-    @Bean(name = "jedisPoolConfig")
-    public JedisPoolConfig jedisPoolConfig() {
-        log.info("=== XXX RedisConf jedisPoolConfig 初始化JedisPoolConfi ===");
-        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-        // 连接池最大连接数（使用负值表示没有限制）
-        jedisPoolConfig.setMaxTotal(this.maxTotal);
-        // 连接池最大阻塞等待时间（使用负值表示没有限制）
-        jedisPoolConfig.setMaxWaitMillis(this.maxWaitMillis);
-        // 连接池中的最大空闲连接
-        jedisPoolConfig.setMaxIdle(this.maxIdle);
-        // 连接池中的最小空闲连接
-        jedisPoolConfig.setMinIdle(this.minIdle);
+    @Bean
+    public JedisPoolConfig getJedisPoolConfig() {
+        JedisPoolConfig jedisPoolConfig =new JedisPoolConfig();
+        jedisPoolConfig.setMaxIdle(redisProperties.getMaxIdle());
+        jedisPoolConfig.setMaxWaitMillis(redisProperties.getMaxWait());
+        jedisPoolConfig.setTestOnBorrow(redisProperties.isTestOnBorrow());
+        jedisPoolConfig.setMaxWaitMillis(redisProperties.getMaxWaitMillis());
+
         return jedisPoolConfig;
     }
 
     /**
-     * 实例化 RedisConnectionFactory 对象
-     * @param poolConfig
-     * @return
+     * 配置 Redis Cluster 信息
      */
-    @Bean(name = "jedisConnectionFactory")
-    public RedisConnectionFactory jedisConnectionFactory(RedisClusterConfiguration poolConfig) {
-        log.info("=== XXX RedisConf jedisConnectionFactory 初始化JedisPoolConfi ===");
-        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(poolConfig);
-        jedisConnectionFactory.setHostName(this.host);
-        jedisConnectionFactory.setPort(this.port);
-        jedisConnectionFactory.setDatabase(this.database);
-        jedisConnectionFactory.setTimeout(this.timeout);
+    @Bean
+    public RedisClusterConfiguration getJedisCluster() {
+        RedisClusterConfiguration redisClusterConfiguration = new RedisClusterConfiguration();
+        redisClusterConfiguration.setMaxRedirects(redisProperties.getMaxRedirects());
+        redisClusterConfiguration.setPassword("");
+
+        List<RedisNode> nodeList = new ArrayList<>();
+
+        String[] cNodes = redisProperties.getNodes().split(",");
+        //分割出集群节点
+        for(String node : cNodes) {
+            String[] hp = node.split(":");
+            nodeList.add(new RedisNode(hp[0], Integer.parseInt(hp[1])));
+        }
+        redisClusterConfiguration.setClusterNodes(nodeList);
+
+        return redisClusterConfiguration;
+    }
+
+
+    /**
+     * 配置 Redis 连接工厂
+     */
+    @Bean
+    public JedisConnectionFactory getJedisConnectionFactory(RedisClusterConfiguration redisClusterConfiguration, JedisPoolConfig jedisPoolConfig) {
+        JedisConnectionFactory jedisConnectionFactory =
+                new JedisConnectionFactory(redisClusterConfiguration, jedisPoolConfig);
         return jedisConnectionFactory;
     }
 
     /**
-     * 配置工厂
-     * @param jedisPoolConfig
-     * @return
+     * 设置数据存入redis 的序列化方式
+     *  redisTemplate序列化默认使用的jdkSerializeable
+     *  存储二进制字节码，导致key会出现乱码，所以自定义序列化类
      */
     @Bean
-    public JedisConnectionFactory jedisConnectionFactory(JedisPoolConfig jedisPoolConfig, RedisSentinelConfiguration sentinelConfig) {
-        return new JedisConnectionFactory(sentinelConfig,jedisPoolConfig);
-    }
-    /**
-     * 实例化 RedisTemplate 对象
-     * @return
-     */
-    @Bean(name = "redisTemplate")
-    public RedisTemplate<String, String> functionDomainRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
 
@@ -127,6 +93,7 @@ public class RedisConfig {
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
         StringRedisSerializer keySerializer = new StringRedisSerializer();
 
+
         redisTemplate.setEnableDefaultSerializer(false);
         redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
         redisTemplate.setKeySerializer(keySerializer);
@@ -136,5 +103,5 @@ public class RedisConfig {
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }
-
 }
+
