@@ -2,6 +2,9 @@ package com.example.empty.business.strategy.test;
 
 import com.example.empty.business.common.vo.BaseResponse;
 import com.example.empty.business.service.redis.RedisValueService;
+import com.github.benmanes.caffeine.cache.CacheLoader;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
@@ -80,5 +83,19 @@ public class TestStrategy {
             e.printStackTrace();
         }
         return key;
+    }
+
+    public String caffeineTest(String key){
+        LoadingCache<String, String> build = Caffeine.newBuilder().refreshAfterWrite(1, TimeUnit.MINUTES)
+                .build(new CacheLoader<String, String>() {
+                    @Override
+                    public String load(String key)  {
+                        return "aaa";
+                    }
+                });
+        String a = build.get(key);
+        build.refresh(key);
+        build.invalidateAll();
+        return a;
     }
 }

@@ -3,6 +3,7 @@ package com.example.empty.application;
 import com.example.empty.business.common.vo.BaseResponse;
 import com.example.empty.business.strategy.test.TestStrategy;
 import com.example.empty.business.strategy.test.vo.ValidatorRequest;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,12 @@ public class TestController {
     public String cachePutTest(@PathVariable String key) {
         log.info("do cachePutTest");
         return testStrategy.cachePutTest(key);
+    }
+
+    @GetMapping("/caffeineTest/{key}")
+    public String caffeineTest(@PathVariable String key) {
+        log.info("do caffeineTest");
+        return testStrategy.caffeineTest(key);
     }
 
 }
