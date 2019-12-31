@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
-@PropertySource(value = {"classpath:config/application.yml", "classpath:config/system-dev.yml"},
+@PropertySource(value = {"classpath:config/application.yml"},
 		ignoreResourceNotFound = true)
 @MapperScan("com.example.empty.infrastructure.persistence.mapper")
 public class EmptyApplication {

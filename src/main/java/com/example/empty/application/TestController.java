@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
+import java.util.concurrent.Executor;
 
 @Slf4j
 @Validated
@@ -60,5 +61,14 @@ public class TestController {
         log.info("do caffeineTest");
         return testStrategy.caffeineTest(key);
     }
+
+    @GetMapping("/testAsync")
+    public BaseResponse testAsync() {
+        for (int i = 0; i < 10; i++) {
+            testStrategy.testExecutor(i);
+        }
+        return new BaseResponse(BaseResponse.SUCCESS,"SUCCESS");
+    }
+
 
 }

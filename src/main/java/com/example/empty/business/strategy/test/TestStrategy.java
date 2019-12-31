@@ -6,14 +6,17 @@ import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -24,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class TestStrategy {
 
-    @Value("${testValue}")
+    @Value("${system_testValue}")
     private String testValue;
 
     @Resource
@@ -97,5 +100,28 @@ public class TestStrategy {
         build.refresh(key);
         build.invalidateAll();
         return a;
+    }
+
+    @Async
+    public void testAsync(int i) {
+        System.out.println(i + "异步线程id：" + Thread.currentThread().getId() + " start");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(i + "异步线程id：" + Thread.currentThread().getId() + " end");
+    }
+
+    @Autowired
+    private Executor executor;
+
+    public void testExecutor(int i){
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                testAsync(i);
+            }
+        });
     }
 }

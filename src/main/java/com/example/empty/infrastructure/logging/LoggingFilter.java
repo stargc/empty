@@ -21,6 +21,9 @@ import java.util.concurrent.atomic.AtomicLong;
 @Component
 public class LoggingFilter extends OncePerRequestFilter {
 
+    /** 不需要打印入参出参log的方法   */
+    private static final List filterList = Arrays.asList("/health");
+
     private static final String REQUEST_PREFIX = "收到请求: ";
     private static final String RESPONSE_PREFIX = "返回响应: ";
     private AtomicLong id = new AtomicLong(1);
@@ -119,7 +122,5 @@ public class LoggingFilter extends OncePerRequestFilter {
         log.info(msg.toString());
     }
 
-    /** 不需要打印入参出参log的方法   */
-    private static final List filterList = Arrays.asList("/health");
 
 }

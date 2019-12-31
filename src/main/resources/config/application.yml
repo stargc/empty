@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: dev
   application:
     name: empty
   mybatis:
@@ -36,3 +34,9 @@ redis:
       test-on-borrow: true
       # 最大建立连接等待时间
       maxWaitMillis: 100000
+
+threadPool:
+  corePoolSize: 50
+  maxPoolSize: 80
+  queueCapacity: 9999
+  keepAliveSeconds: 60
