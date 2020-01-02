@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 @Slf4j
 public class RestTemplateLogInterceptor implements ClientHttpRequestInterceptor {
@@ -26,7 +27,7 @@ public class RestTemplateLogInterceptor implements ClientHttpRequestInterceptor 
     private void traceRequest(HttpRequest request, byte[] body) {
 
         try {
-            log.info("发送请求： URI={},Method={},Headers={},RequestBody={}", request.getURI(), request.getMethod(), request.getHeaders(), new String(body, "UTF-8"));
+            log.info("发送请求： URI={},Method={},Headers={},RequestBody={}", request.getURI(), request.getMethod(), request.getHeaders(), new String(body, StandardCharsets.UTF_8));
         } catch (Exception e) {
             log.warn("打印restTemplate请求出错：{}", ExceptionUtils.getStackTrace(e));
         }
@@ -41,7 +42,7 @@ public class RestTemplateLogInterceptor implements ClientHttpRequestInterceptor 
             return;
         }
 
-        try (InputStreamReader inputStreamReader = new InputStreamReader(bodyInputStream, "UTF-8");
+        try (InputStreamReader inputStreamReader = new InputStreamReader(bodyInputStream, StandardCharsets.UTF_8);
              BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
             StringBuilder inputStringBuilder = new StringBuilder();
             String line = bufferedReader.readLine();

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * @author created by guanchen on 2019/12/29 11:54
  */
 @Service
-public class MockMQProducer {
+public class TestMQProducer {
     @Autowired
     private JmsMessagingTemplate jmsMessagingTemplate;
 

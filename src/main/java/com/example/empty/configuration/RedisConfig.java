@@ -69,9 +69,7 @@ public class RedisConfig {
      */
     @Bean
     public JedisConnectionFactory getJedisConnectionFactory(RedisClusterConfiguration redisClusterConfiguration, JedisPoolConfig jedisPoolConfig) {
-        JedisConnectionFactory jedisConnectionFactory =
-                new JedisConnectionFactory(redisClusterConfiguration, jedisPoolConfig);
-        return jedisConnectionFactory;
+        return new JedisConnectionFactory(redisClusterConfiguration, jedisPoolConfig);
     }
 
     /**

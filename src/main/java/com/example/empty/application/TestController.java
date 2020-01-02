@@ -2,9 +2,8 @@ package com.example.empty.application;
 
 import com.example.empty.business.common.vo.BaseResponse;
 import com.example.empty.business.strategy.test.TestStrategy;
-import com.example.empty.business.strategy.test.activeMQ.MockMQProducer;
+import com.example.empty.business.strategy.test.activeMQ.TestMQProducer;
 import com.example.empty.business.strategy.test.vo.ValidatorRequest;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
-import java.util.concurrent.Executor;
 
 @Slf4j
 @Validated
@@ -23,7 +21,7 @@ public class TestController {
     @Autowired
     private TestStrategy testStrategy;
     @Autowired
-    private MockMQProducer mockMQProducer;
+    private TestMQProducer testMQProducer;
 
     @PostMapping("/test1")
     public BaseResponse test1(@RequestBody @Valid ValidatorRequest demo){
@@ -75,7 +73,7 @@ public class TestController {
 
     @GetMapping("ZHCG/muckMQ")
     public BaseResponse muckMQ(@RequestParam String quereName,@RequestParam String msg,@RequestParam int queueType){
-        mockMQProducer.send(quereName,msg,queueType);
+        testMQProducer.send(quereName,msg,queueType);
         return new BaseResponse(BaseResponse.SUCCESS,"SUCCESS");
     }
 

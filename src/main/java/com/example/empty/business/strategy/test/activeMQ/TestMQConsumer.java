@@ -11,10 +11,10 @@ import javax.jms.TextMessage;
 
 @Component
 @Slf4j
-public class ToiletMQConsumer {
+public class TestMQConsumer {
 
 
-    @JmsListener(destination = "toilet_alarm_topic_public", containerFactory = "topicListenerContainerFactory")
+    @JmsListener(destination = "test_topic_public", containerFactory = "topicListenerContainerFactory")
     public void handleMessage(Message json) {
         String result = "";
         try {
