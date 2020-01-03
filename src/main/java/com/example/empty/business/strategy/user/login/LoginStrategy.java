@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 /**
  * @author created by guanchen on 2019/9/23 11:20
@@ -29,6 +30,28 @@ public class LoginStrategy {
             return resp;
         }
         resp.setResultCode(BaseResponse.SUCCESS);
+        if (user != null) {
+            String phone = user.getPhone();
+            log.info(phone);
+        }
+
         return resp;
+    }
+
+
+    public static void main(String[] args) {
+        User user = new User();
+        user.setPhone("151");
+
+        User emptyUser = null;
+
+
+        Optional<User> userOptional = Optional.of(user);
+        System.out.println(userOptional.get().getPhone().toString());
+
+
+        Optional<User> userEOptional = Optional.of(emptyUser);
+        System.out.println(userEOptional.get().getPhone().toString());
+
     }
 }
