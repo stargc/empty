@@ -15,18 +15,21 @@ public class TestMQProducer {
     @Autowired
     private JmsMessagingTemplate jmsMessagingTemplate;
 
-    public void send(String quereName,String msg,int queueType) {
+    public void send(String quereName, String msg, int queueType) {
         ActiveMQDestination queue = null;
-        switch (queueType){
+        switch (queueType) {
             case 0:
-                queue=new ActiveMQTopic(quereName);
+                queue = new ActiveMQTopic(quereName);
                 break;
-            case  1:
+            case 1:
+                queue = new ActiveMQQueue(quereName);
+                break;
+            default:
                 queue = new ActiveMQQueue(quereName);
                 break;
         }
 
-        this.jmsMessagingTemplate.convertAndSend(queue,msg);
+        this.jmsMessagingTemplate.convertAndSend(queue, msg);
     }
 
 }

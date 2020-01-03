@@ -10,6 +10,14 @@ spring:
     url: jdbc:mysql://49.7.59.236:3306/dl_user_finally?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=Asia/Shanghai
     username: root
     password: cwovEll__
+  activemq:
+    broker-url: tcp://157.0.243.29:61616
+    user: admin
+    password: admin
+    pool:
+      enabled: true
+      max-connections: 10
+      idle-timeout: 30000
 
 server:
   port: 8081
