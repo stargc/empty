@@ -5,10 +5,7 @@ import org.junit.Test;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -98,5 +95,23 @@ public class StreamService {
         numbers.stream().sorted().forEach(a -> {
             System.out.println(a);
         });
+    }
+
+    @Test
+    public void filter(){
+        List<String>strings = Arrays.asList("abc", "", "bc", "efg", "abcd","", "jkl");
+        // 获取空字符串的数量
+        long count = strings.stream().filter(string -> string.isEmpty()).count();
+        System.out.println(count);
+    }
+
+
+    @Test
+    public void sorted(){
+        Random random = new Random();
+        List<Integer> ints = random.ints().limit(10).boxed().collect(toList());
+        ints.stream().forEach(System.out::print);
+        System.out.println("------------------");
+        ints.stream().sorted().forEach(System.out::print);
     }
 }

@@ -35,7 +35,7 @@ public class OptionalService {
         System.out.println(o1);
     }
     @Test
-    public void testNestedObject(){
+    public void isNull(){
         BigBean bean = BigBean.build("Alibaba", "Nacos");
         BigBean bean2 = BigBean.buildEmpty("Alibaba", "Nacos");
 
