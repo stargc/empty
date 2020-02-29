@@ -1,6 +1,8 @@
 # empty
 springBoot empty project
 
+使用mybatis generator 生成 mapper,entity
+
 集成 redisTemplate,
      caffeineCache,
      restTemplate，
