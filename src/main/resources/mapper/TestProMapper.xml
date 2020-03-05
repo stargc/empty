@@ -1,0 +1,90 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
+<!--<mapper namespace="com.ehl.data.platform.business.datasrc.dao.DataSrcAllInfoMapper">-->
+<!--    <resultMap id="BaseResultMap" type="com.ehl.data.platform.business.datasrc.model.DataSrcAllInfo">-->
+<!--        <result column="datasrc_id" jdbcType="VARCHAR" property="datasrcId"/>-->
+<!--        <result column="fep_id" jdbcType="VARCHAR" property="fepId"/>-->
+<!--        <result column="datasrc_name" jdbcType="VARCHAR" property="datasrcName"/>-->
+<!--        <result column="org_id" jdbcType="VARCHAR" property="orgId"/>-->
+<!--        <result column="org_name" jdbcType="VARCHAR" property="orgName"/>-->
+<!--        <result column="database_name" jdbcType="VARCHAR" property="databaseName"/>-->
+<!--        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>-->
+<!--        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>-->
+<!--        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>-->
+
+<!--        <result column="ip" jdbcType="VARCHAR" property="ip"/>-->
+<!--        <result column="port" jdbcType="VARCHAR" property="port"/>-->
+<!--        <result column="username" jdbcType="VARCHAR" property="username"/>-->
+<!--        <result column="password" jdbcType="VARCHAR" property="password"/>-->
+<!--    </resultMap>-->
+<!--    <sql id="Base_Column_List">-->
+<!--            ds.datasrc_id, ds.fep_id, ds.datasrc_name, ds.org_id, ds.org_name, ds.database_name, ds.create_user, ds.create_time,ds.update_time,-->
+<!--            fep.ip, fep.port, fep.username, fep.password-->
+<!--  </sql>-->
+
+<!--    <sql id="Base_table">-->
+<!--        t_dl_datasrc ds-->
+<!--        left JOIN t_dl_fep fep on ds.fep_id = fep.fep_id-->
+<!--  </sql>-->
+<!--    <select id="selectByDataSrcId" resultMap="BaseResultMap" parameterType="java.lang.String">-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from-->
+<!--        <include refid="Base_table"/>-->
+<!--        where ds.datasrc_id = #{datasrcId,jdbcType=VARCHAR}-->
+<!--        limit 1;-->
+<!--    </select>-->
+<!--    <select id="selectByCondition"-->
+<!--            parameterType="com.ehl.data.platform.business.datasrc.model.DataSrcSearchCondition"-->
+<!--            resultMap="BaseResultMap">-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from-->
+<!--        <include refid="Base_table"/>-->
+<!--        <where>-->
+<!--            <if test="condition.orgName !=null and condition.orgName !=''">-->
+<!--                and ds.org_name like CONCAT('%',#{condition.orgName},'%')-->
+<!--            </if>-->
+<!--            <if test="condition.datasrcName != null and condition.datasrcName !=''">-->
+<!--                and ds.datasrc_name like CONCAT('%',#{condition.datasrcName},'%')-->
+<!--            </if>-->
+<!--        </where>-->
+<!--         ORDER BY ds.update_time DESC-->
+<!--        <if test="condition.index !=null and condition.num !=null">-->
+<!--            limit #{condition.index},#{condition.num}-->
+<!--        </if>-->
+<!--    </select>-->
+<!--    <select id="selectCountByCondition"-->
+<!--            parameterType="com.ehl.data.platform.business.datasrc.model.DataSrcSearchCondition"-->
+<!--            resultType="java.lang.Integer">-->
+<!--        select count(ds.datasrc_id)-->
+<!--        from-->
+<!--        <include refid="Base_table"/>-->
+<!--        <where>-->
+<!--            <if test="condition.orgName !=null and condition.orgName !=''">-->
+<!--                and ds.org_name like CONCAT('%',#{condition.orgName},'%')-->
+<!--            </if>-->
+<!--            <if test="condition.datasrcName != null and condition.datasrcName !=''">-->
+<!--                and ds.datasrc_name like CONCAT('%',#{condition.datasrcName},'%')-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+<!--    <select id="selectByOrgId" parameterType="java.lang.String" resultMap="BaseResultMap">-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from-->
+<!--        <include refid="Base_table"/>-->
+<!--        where-->
+<!--            ds.org_id=#{orgId,jdbcType=VARCHAR}-->
+<!--    </select>-->
+
+<!--    <select id="selectCountByOrgId" parameterType="java.lang.String" resultType="java.lang.Integer">-->
+<!--        select-->
+<!--            count(ds.datasrc_id)-->
+<!--        from-->
+<!--            <include refid="Base_table"/>-->
+<!--        where-->
+<!--            ds.org_id=#{orgId,jdbcType=VARCHAR}-->
+<!--    </select>-->
+<!--</mapper>-->
