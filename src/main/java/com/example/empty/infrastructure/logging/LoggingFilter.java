@@ -72,7 +72,8 @@ public class LoggingFilter extends OncePerRequestFilter {
             try {
                 String charEncoding = requestWrapper.getCharacterEncoding() != null ? requestWrapper.getCharacterEncoding() :
                         "UTF-8";
-                msg.append("; payload=").append(new String(requestWrapper.toByteArray(), charEncoding).replaceAll("\r|\n", "").trim());
+                msg.append("; payload=").append(new String(requestWrapper.toByteArray(), charEncoding)
+                        .replaceAll("\r|\n", "").replaceAll("\t",""));
             } catch (UnsupportedEncodingException e) {
                 logger.warn("Failed to parse request payload", e);
             }
@@ -127,7 +128,8 @@ public class LoggingFilter extends OncePerRequestFilter {
             if (request instanceof RequestWrapper && !isMultipart(response) && !isBinaryContent(response)) {
                 String charEncoding = response.getCharacterEncoding() != null ? response.getCharacterEncoding() : "UTF-8";
                 String requestUri = request.getRequestURI();
-                msg.append("; payload=").append(new String(response.toByteArray(), charEncoding).replaceAll("\r|\n", "").trim());
+                msg.append("; payload=").append(new String(response.toByteArray(), charEncoding)
+                        .replaceAll("\r|\n", "").replaceAll("\t",""));
             }
             } catch (UnsupportedEncodingException e) {
             logger.warn("Failed to parse response payload", e);
