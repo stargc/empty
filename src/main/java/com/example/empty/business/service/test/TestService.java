@@ -1,4 +1,4 @@
-package com.example.empty.business.strategy.test;
+package com.example.empty.business.service.test;
 
 import com.example.empty.business.common.vo.BaseResponse;
 import com.example.empty.business.service.redis.RedisValueService;
@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 @Slf4j
-public class TestStrategy {
+public class TestService {
 
     @Value("${system_testValue}")
     private String testValue;

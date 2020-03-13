@@ -1,4 +1,4 @@
-package com.example.empty.business.strategy.test.vo;
+package com.example.empty.business.service.test.vo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
-package com.example.empty.business.strategy.test.function;
+package com.example.empty.business.service.test.function;
 
-import com.example.empty.business.strategy.test.vo.BigBean;
+import com.example.empty.business.service.test.vo.BigBean;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -49,5 +49,21 @@ public class OptionalService {
         Optional.ofNullable(bean).ifPresent(u -> {
             System.out.println(u.getName());
         });
+
+        BigBean bean3 = null;
+        Optional.ofNullable(bean3).ifPresent(u -> {
+            System.out.println("==" + u.getName());
+        });
+
+//        Optional<List<PopulationInfo>> popListOptional = Optional.ofNullable(req.getPopulationInfoList());
+//        popListOptional.ifPresent(populationInfos -> {
+//            populationInfos.stream().forEach(populationInfo -> {
+//                Optional<PopulationInfo> popOptional = Optional.ofNullable(populationInfo);
+//                popOptional.ifPresent(info -> {
+//                    Assert.isTrue(!isPhone(info.getPhoneNum()), String.format("人员{%s}手机号格式错误", populationInfo.getName()));
+//                    Assert.isTrue(!isIdNum(info.getIdNum()), String.format("人员{%s}身份证格式错误", populationInfo.getName()));
+//                });
+//            });
+//        });
     }
 }

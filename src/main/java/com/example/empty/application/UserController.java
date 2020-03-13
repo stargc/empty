@@ -1,8 +1,8 @@
 package com.example.empty.application;
 
-import com.example.empty.business.strategy.user.login.LoginStrategy;
-import com.example.empty.business.strategy.user.login.vo.LoginReq;
-import com.example.empty.business.strategy.user.login.vo.LoginResp;
+import com.example.empty.business.service.user.login.LoginService;
+import com.example.empty.business.service.user.login.vo.LoginReq;
+import com.example.empty.business.service.user.login.vo.LoginResp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +20,10 @@ import javax.validation.Valid;
 public class UserController {
 
     @Resource
-    private LoginStrategy loginStrategy;
+    private LoginService loginService;
 
     @PostMapping("/_login")
     public LoginResp login(@RequestBody @Valid LoginReq req){
-        return loginStrategy.login(req);
+        return loginService.login(req);
     }
 }

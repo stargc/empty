@@ -1,6 +1,7 @@
 package com.example.empty.infrastructure.logging;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -17,12 +18,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Slf4j
 @Component
 public class LoggingFilter extends OncePerRequestFilter {
 
+    private Logger logger = LoggerFactory.getLogger(LoggingFilter.class);
+
     /** 不需要打印入参出参log的方法   */
-    private static final List filterList = Arrays.asList("/health");
+    private static final List filterList = Arrays.asList("/census/actuator/health");
 
     private static final String REQUEST_PREFIX = "收到请求: ";
     private static final String RESPONSE_PREFIX = "返回响应: ";
@@ -36,8 +38,10 @@ public class LoggingFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } finally {
-            logRequest(request);
-            logResponse((ResponseWrapper) response,request);
+            if(!filterList.contains(request.getRequestURI())){
+                logRequest(request);
+                logResponse((ResponseWrapper) response,request);
+            }
         }
 
     }
@@ -68,9 +72,9 @@ public class LoggingFilter extends OncePerRequestFilter {
             try {
                 String charEncoding = requestWrapper.getCharacterEncoding() != null ? requestWrapper.getCharacterEncoding() :
                         "UTF-8";
-                msg.append("; payload=").append(new String(requestWrapper.toByteArray(), charEncoding));
+                msg.append("; payload=").append(new String(requestWrapper.toByteArray(), charEncoding).replaceAll("\r|\n", "").trim());
             } catch (UnsupportedEncodingException e) {
-                log.warn("Failed to parse request payload", e);
+                logger.warn("Failed to parse request payload", e);
             }
             if(isApplicationForm(request)){
                 Map map = request.getParameterMap();
@@ -85,7 +89,7 @@ public class LoggingFilter extends OncePerRequestFilter {
             }
 
         }
-        log.info(msg.toString());
+        logger.info(msg.toString());
     }
 
     private boolean isBinaryContent(final HttpServletRequest request) {
@@ -99,27 +103,36 @@ public class LoggingFilter extends OncePerRequestFilter {
         return request.getContentType() != null && request.getContentType().startsWith("multipart/form-data");
     }
 
+    private boolean isBinaryContent(final HttpServletResponse response) {
+        if (response.getContentType() == null) {
+            return false;
+        }
+        return response.getContentType().startsWith("image") || response.getContentType().startsWith("video") || response.getContentType().startsWith("audio");
+    }
+
+    private boolean isMultipart(final HttpServletResponse response) {
+        return response.getContentType() != null && response.getContentType().startsWith("multipart/form-data");
+    }
+
     private boolean isApplicationForm(final HttpServletRequest request) {
         return request.getContentType() != null && request.getContentType().startsWith("application/x-www-form-urlencoded");
     }
 
     private void logResponse(final ResponseWrapper response, HttpServletRequest request) {
+
         StringBuilder msg = new StringBuilder();
         msg.append(RESPONSE_PREFIX);
         msg.append("request id=").append((response.getId()));
         try {
-            String charEncoding = response.getCharacterEncoding() != null ? response.getCharacterEncoding() : "UTF-8";
-            String requestUri = request.getRequestURI();
-            if(!filterList.contains(requestUri)){
-                msg.append("; payload=").append(new String(response.toByteArray(), charEncoding));
-            }else{
-                msg.append("; payload=");
+            if (request instanceof RequestWrapper && !isMultipart(response) && !isBinaryContent(response)) {
+                String charEncoding = response.getCharacterEncoding() != null ? response.getCharacterEncoding() : "UTF-8";
+                String requestUri = request.getRequestURI();
+                msg.append("; payload=").append(new String(response.toByteArray(), charEncoding).replaceAll("\r|\n", "").trim());
             }
-
-        } catch (UnsupportedEncodingException e) {
-            log.warn("Failed to parse response payload", e);
+            } catch (UnsupportedEncodingException e) {
+            logger.warn("Failed to parse response payload", e);
         }
-        log.info(msg.toString());
+        logger.info(msg.toString());
     }
 
 

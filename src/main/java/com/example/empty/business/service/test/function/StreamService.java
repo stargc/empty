@@ -1,12 +1,11 @@
-package com.example.empty.business.strategy.test.function;
+package com.example.empty.business.service.test.function;
 
-import com.example.empty.business.strategy.test.vo.BigBean;
+import com.example.empty.business.service.test.vo.BigBean;
 import org.junit.Test;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -37,6 +36,7 @@ public class StreamService {
 
         System.out.println("------------------");
 
+        /** list 转成另外一个 list**/
         List<String> b = Arrays.stream(words)
                 .map(word -> word.split(""))
                 .flatMap(Arrays::stream)
@@ -69,7 +69,8 @@ public class StreamService {
         }};
 
         List<Map<String,String>> mapList = Arrays.asList(a,b);
-        Map<String, String> map2 = mapList.stream().collect(Collectors.toMap(p -> p.get("name"), p -> p.get("code"),(k1, k2)->k1));
+        Map<String, String> map2 = mapList.stream().collect(
+                Collectors.toMap(p -> p.get("name"), p -> p.get("code"),(k1, k2)->k1));
 
         map2.forEach((k,v) -> System.out.println(String.format("key = %s,value=%s",k,v)));
 

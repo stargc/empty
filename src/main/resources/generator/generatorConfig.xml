@@ -15,9 +15,9 @@
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://221.229.208.19:3306/stat"
-                        userId="stat"
-                        password="stat!@#$">
+                        connectionURL="jdbc:mysql://10.150.27.193:3306/db_population_collection"
+                        userId="root"
+                        password="ehl1234">
         </jdbcConnection>
 
         <javaTypeResolver>
@@ -25,7 +25,7 @@
         </javaTypeResolver>
 
         <!-- 生成模型的包名和位置-->
-        <javaModelGenerator targetPackage="com.ehl.tsq.data.infrastructure.persistence.po"
+        <javaModelGenerator targetPackage="com.ehualu.data.business.pet.model"
                             targetProject="./src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
@@ -35,18 +35,18 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ehl.tsq.data.infrastructure.persistence.mapper" targetProject="./src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ehualu.data.business.pet.dao" targetProject="./src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-        <table tableName="t_dws_base_statistics" domainObjectName="BaseStatistics"
+        <table tableName="t_pet_info" domainObjectName="PetInfo"
                enableSelectByPrimaryKey="true"
                enableSelectByExample="true"
                enableCountByExample="true"
                enableDeleteByExample="true"
                enableUpdateByExample="true">
-            <generatedKey column="id" sqlStatement="JDBC"/>
+            <generatedKey column="***ID" sqlStatement="JDBC"/>
         </table>
     </context>
 </generatorConfiguration>
