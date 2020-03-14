@@ -1,6 +1,8 @@
 spring:
   application:
     name: empty
+  resources:
+    static-locations: classpath:/html
   mybatis:
     typeAliasesPackage: com.example.empty.infrastructure.persistence.po
     mapperLocations: classpath:mapper/*.xml
@@ -18,7 +20,6 @@ spring:
       enabled: true
       max-connections: 10
       idle-timeout: 30000
-
 server:
   port: 8081
 

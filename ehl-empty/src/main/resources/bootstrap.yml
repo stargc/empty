@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: ehl-empty-server
+  cloud:
+    consul:
+      discovery:
+        deregister: false
+        service-name: ${spring.application.name}
+        instance-id: ${spring.application.name}:${spring.cloud.consul.discovery.ip-address}:${server.port}
+  datasource:
+    druid:
+      reset-stat-enable: true
+      filters: stat,wall,slf4j
+      stat-view-servlet:
+        enabled: true
+        login-username: admin
+        login-password: admin
+management:
+  endpoint:
+    consul:
+      enabled: false
+
+  endpoints:
+    web:
+      exposure:
+        #默认放开所有端点
+        include: '*'
