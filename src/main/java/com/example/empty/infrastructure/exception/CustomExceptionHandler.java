@@ -1,4 +1,4 @@
-package com.example.empty.infrastructure.aop;
+package com.example.empty.infrastructure.exception;
 
 import com.example.empty.business.common.vo.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import java.util.Set;
 
 @Slf4j
 @ControllerAdvice
-public class ValidatorExceptionHandler {
+public class CustomExceptionHandler {
     /***
      * 处理传参为 @RequestParam且Validator验证参数错误时 抛出的异常
      * @param e
@@ -37,7 +37,7 @@ public class ValidatorExceptionHandler {
             errorMsg.append(item.getMessage()).append(",");
         }
         errorMsg.delete(errorMsg.length() - 1, errorMsg.length());
-        return getFailedResponse(BaseResponse.FAILED, errorMsg.toString());
+        return getFailedResponse(BaseResponse.FAILED_PARM, errorMsg.toString());
     }
 
     /***
@@ -49,7 +49,7 @@ public class ValidatorExceptionHandler {
     @ResponseBody
     public Object handleParmValidationException(HttpServletRequest request, BindException e) {
         BindingResult result = e.getBindingResult();
-        return getFailedResponse(BaseResponse.FAILED, getErrorMsg(result));
+        return getFailedResponse(BaseResponse.FAILED_PARM, getErrorMsg(result));
     }
 
     /***
@@ -61,8 +61,22 @@ public class ValidatorExceptionHandler {
     @ResponseBody
     public Object handleParmValidationException(HttpServletRequest request, MethodArgumentNotValidException e) {
         BindingResult result = e.getBindingResult();
-        return getFailedResponse(BaseResponse.FAILED, getErrorMsg(result));
+        return getFailedResponse(BaseResponse.FAILED_PARM, getErrorMsg(result));
     }
+
+
+    @ExceptionHandler(ValParmException.class)
+    @ResponseBody
+    public Object handleValParmException(HttpServletRequest request, ValParmException e) {
+        return getFailedResponse(BaseResponse.FAILED_PARM, e.getMessage());
+    }
+
+    @ExceptionHandler(ThirdPatryException.class)
+    @ResponseBody
+    public Object handleThirdPatryException(HttpServletRequest request, ThirdPatryException e) {
+        return getFailedResponse(BaseResponse.FAILED_THIRD_PARTY, e.getMessage());
+    }
+
 
     private String getErrorMsg(BindingResult result){
         StringBuilder errorMsg = new StringBuilder("请求参数异常：");

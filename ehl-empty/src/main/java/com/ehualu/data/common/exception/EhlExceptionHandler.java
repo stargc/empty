@@ -63,6 +63,26 @@ public class EhlExceptionHandler {
 		return message;
 	}
 
+	@ExceptionHandler(ValParmException.class)
+	@ResponseBody
+	public Object handleValParmException(HttpServletRequest request, ValParmException e) {
+		Message<String> message = new Message<>();
+		message.setStatus(Message.Code.ERROR);
+		message.setErrorCode(Message.Code.ERRORCODE);
+		message.setError(e.getMessage());
+		return message;
+	}
+
+	@ExceptionHandler(ThirdPatryException.class)
+	@ResponseBody
+	public Object handleThirdPatryException(HttpServletRequest request, ThirdPatryException e) {
+		Message<String> message = new Message<>();
+		message.setStatus(Message.Code.ERROR);
+		message.setErrorCode(Message.Code.ERRORCODE);
+		message.setError(e.getMessage());
+		return message;
+	}
+
 	private String getErrorMsg(BindingResult result){
 		StringBuilder errorMsg = new StringBuilder("请求参数异常：");
 		for (ObjectError error : result.getAllErrors()) {

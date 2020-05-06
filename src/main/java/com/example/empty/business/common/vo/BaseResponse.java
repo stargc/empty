@@ -17,6 +17,13 @@ public class BaseResponse {
     public static final String SUCCESS = "1";
     /** 失败后返回resultCode值*/
     public static final String FAILED = "-1";
+    /** 参数异常*/
+    public static final String FAILED_PARM = "-2";
+    /** 系统异常*/
+    public static final String FAILED_SERVER = "-3";
+    /** 第三方服务异常*/
+    public static final String FAILED_THIRD_PARTY = "-4";
+
 
     /**返回代码*/
     private String resultCode;
