@@ -15,7 +15,7 @@
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://10.150.27.247:3306/db_population_collection"
+                        connectionURL="jdbc:mysql://172.38.50.247:3306/db_population_collection"
                         userId="root"
                         password="Ehl@1234">
         </jdbcConnection>
