@@ -17,8 +17,8 @@ start() {
     #是否已经启动
     if [ ! -d "/proc/$PID" ]; then
         echo -e "running command \n$CMD\n"
-        eval nohup $CMD > /dev/null 2>&1 &
-        #eval  $CMD > /dev/null  &
+#        eval nohup $CMD > /dev/null 2>&1 &
+        eval nohup $CMD > /dev/null  &
         #最后运行的后台进程ID
         pid=$!
         sleep 1
