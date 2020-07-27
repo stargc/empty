@@ -7,6 +7,7 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -113,6 +114,8 @@ public class TestService {
         System.out.println(i + "异步线程id：" + Thread.currentThread().getId() + " end");
     }
 
+
+    @Qualifier("customExecutor")
     @Autowired
     private Executor executor;
 

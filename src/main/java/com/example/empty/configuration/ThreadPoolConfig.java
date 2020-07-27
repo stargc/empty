@@ -28,7 +28,7 @@ public class ThreadPoolConfig implements AsyncConfigurer {
     private int keepAliveSeconds;
 
     @Override
-    @Bean
+    @Bean(value = "customExecutor")
     public Executor getAsyncExecutor() {
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
         // 最先线程池，低于这个数，新建线程
