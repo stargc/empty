@@ -1,4 +1,4 @@
-package com.example.empty.business.service.test.activeMQ;
+package com.example.empty.business.service.activeMQ;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;

@@ -2,7 +2,7 @@ package com.example.empty.application;
 
 import com.example.empty.business.common.vo.BaseResponse;
 import com.example.empty.business.service.test.TestService;
-import com.example.empty.business.service.test.activeMQ.TestMQProducer;
+import com.example.empty.business.service.activeMQ.TestMQProducer;
 import com.example.empty.business.service.test.vo.ValidatorRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;

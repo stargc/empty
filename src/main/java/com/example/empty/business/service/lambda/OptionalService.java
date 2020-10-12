@@ -1,4 +1,4 @@
-package com.example.empty.business.service.test.function;
+package com.example.empty.business.service.lambda;
 
 import com.example.empty.business.service.test.vo.BigBean;
 import org.junit.Test;

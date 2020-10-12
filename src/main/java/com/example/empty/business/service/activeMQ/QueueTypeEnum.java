@@ -1,4 +1,4 @@
-package com.example.empty.business.service.test.activeMQ;
+package com.example.empty.business.service.activeMQ;
 
 public enum QueueTypeEnum {
     TOPIC("0","Topic"),

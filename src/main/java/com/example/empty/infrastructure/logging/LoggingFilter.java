@@ -35,6 +35,7 @@ public class LoggingFilter extends OncePerRequestFilter {
         long requestId = id.incrementAndGet();
         request = new RequestWrapper(requestId, request);
         response = new ResponseWrapper(requestId, response);
+        //TODO:
         try {
             filterChain.doFilter(request, response);
         } finally {

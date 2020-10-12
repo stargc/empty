@@ -1,4 +1,4 @@
-package com.example.empty.business.service.test.activeMQ;
+package com.example.empty.business.service.activeMQ;
 
 import org.apache.activemq.command.ActiveMQDestination;
 import org.apache.activemq.command.ActiveMQQueue;
