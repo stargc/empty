@@ -30,8 +30,7 @@ public class EhlExceptionHandler {
 
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
-		message.setErrorCode(Message.Code.ERROR);
-		message.setError(e.toString());
+		message.setMessage(e.getMessage());
 		return message;
 	}
 
@@ -39,11 +38,9 @@ public class EhlExceptionHandler {
 	@ResponseBody
 	public Object handleBindException(HttpServletRequest request, BindException e) {
 		logger.error(ExceptionUtils.getStackTrace(e));
-		BindingResult result = e.getBindingResult();
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
-		message.setErrorCode(Message.Code.ERRORCODE);
-		message.setError(getErrorMsg(result));
+		message.setMessage(getErrorMsg(e.getBindingResult()));
 		return message;
 	}
 	/***
@@ -55,11 +52,9 @@ public class EhlExceptionHandler {
 	@ResponseBody
 	public Object handleParmValidationException(HttpServletRequest request, MethodArgumentNotValidException e) {
 		logger.error(ExceptionUtils.getStackTrace(e));
-		BindingResult result = e.getBindingResult();
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
-		message.setErrorCode(Message.Code.ERRORCODE);
-		message.setError(getErrorMsg(result));
+		message.setMessage(getErrorMsg(e.getBindingResult()));
 		return message;
 	}
 
@@ -68,8 +63,7 @@ public class EhlExceptionHandler {
 	public Object handleValParmException(HttpServletRequest request, com.example.empty.infrastructure.exception.ValParmException e) {
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
-		message.setErrorCode(Message.Code.ERRORCODE);
-		message.setError(e.getMessage());
+		message.setMessage(e.getMessage());
 		return message;
 	}
 
@@ -78,8 +72,7 @@ public class EhlExceptionHandler {
 	public Object handleThirdPatryException(HttpServletRequest request, com.example.empty.infrastructure.exception.ThirdPatryException e) {
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
-		message.setErrorCode(Message.Code.ERRORCODE);
-		message.setError(e.getMessage());
+		message.setMessage(e.getMessage());
 		return message;
 	}
 
