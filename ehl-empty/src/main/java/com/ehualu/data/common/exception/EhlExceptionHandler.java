@@ -27,7 +27,6 @@ public class EhlExceptionHandler {
 	@ExceptionHandler(value = Exception.class)
 	public Message<String> handleException(HttpServletRequest requset, Exception e) {
 		logger.error(ExceptionUtils.getStackTrace(e));
-
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
 		message.setMessage(e.getMessage());
@@ -37,10 +36,10 @@ public class EhlExceptionHandler {
 	@ExceptionHandler(BindException.class)
 	@ResponseBody
 	public Object handleBindException(HttpServletRequest request, BindException e) {
-		logger.error(ExceptionUtils.getStackTrace(e));
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
 		message.setMessage(getErrorMsg(e.getBindingResult()));
+		logger.error(String.format("请求接口%s报错[%s]",request.getRequestURI(),getErrorMsg(e.getBindingResult())));
 		return message;
 	}
 	/***
@@ -51,28 +50,30 @@ public class EhlExceptionHandler {
 	@ExceptionHandler(value = MethodArgumentNotValidException.class)
 	@ResponseBody
 	public Object handleParmValidationException(HttpServletRequest request, MethodArgumentNotValidException e) {
-		logger.error(ExceptionUtils.getStackTrace(e));
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
 		message.setMessage(getErrorMsg(e.getBindingResult()));
+		logger.error(String.format("请求接口%s报错[%s]",request.getRequestURI(),getErrorMsg(e.getBindingResult())));
 		return message;
 	}
 
-	@ExceptionHandler(com.example.empty.infrastructure.exception.ValParmException.class)
+	@ExceptionHandler(ValParmException.class)
 	@ResponseBody
-	public Object handleValParmException(HttpServletRequest request, com.example.empty.infrastructure.exception.ValParmException e) {
+	public Object handleValParmException(HttpServletRequest request, ValParmException e) {
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
 		message.setMessage(e.getMessage());
+		logger.error(String.format("请求接口%s报错[%s]",request.getRequestURI(),e.getMessage()));
 		return message;
 	}
 
-	@ExceptionHandler(com.example.empty.infrastructure.exception.ThirdPatryException.class)
+	@ExceptionHandler(ThirdPatryException.class)
 	@ResponseBody
-	public Object handleThirdPatryException(HttpServletRequest request, com.example.empty.infrastructure.exception.ThirdPatryException e) {
+	public Object handleThirdPatryException(HttpServletRequest request, ThirdPatryException e) {
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
 		message.setMessage(e.getMessage());
+		logger.error(String.format("请求接口%s报错[%s]",request.getRequestURI(),e.getMessage()));
 		return message;
 	}
 
@@ -84,5 +85,6 @@ public class EhlExceptionHandler {
 		errorMsg.delete(errorMsg.length() - 1, errorMsg.length());
 		return errorMsg.toString();
 	}
+
 
 }
