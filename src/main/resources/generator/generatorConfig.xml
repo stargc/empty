@@ -7,6 +7,10 @@
     <context id="context" targetRuntime="MyBatis3">
         <!--定义生成的java类的编码格式-->
         <property name="javaFileEncoding" value="UTF-8"/>
+
+        <!-- 生成带分页接口的查询 -->
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+
         <commentGenerator>
             <property name="suppressDate" value="true"/>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
