@@ -1,7 +1,7 @@
-package com.ehualu.data.business.addr.dao;
+package com.ehualu.data.business.template.dao;
 
-import com.ehualu.data.business.addr.model.AddrInfo;
-import com.ehualu.data.business.addr.model.AddrInfoExample;
+import com.ehualu.data.business.template.model.AddrInfo;
+import com.ehualu.data.business.template.model.AddrInfoExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

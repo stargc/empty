@@ -1,4 +1,4 @@
-package com.ehualu.data.business.addr.model;
+package com.ehualu.data.business.template.model;
 
 import java.util.ArrayList;
 import java.util.Date;

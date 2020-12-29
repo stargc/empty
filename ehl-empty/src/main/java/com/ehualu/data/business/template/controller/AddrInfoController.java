@@ -1,8 +1,8 @@
-package com.ehualu.data.business.addr.controller;
+package com.ehualu.data.business.template.controller;
 
-import com.ehualu.data.business.addr.model.AddrInfoReq;
-import com.ehualu.data.business.addr.model.AddrInfoResp;
-import com.ehualu.data.business.addr.service.AddrInfoService;
+import com.ehualu.data.business.template.model.AddrInfoReq;
+import com.ehualu.data.business.template.model.AddrInfoResp;
+import com.ehualu.data.business.template.service.AddrInfoService;
 import com.ehualu.data.common.model.Message;
 import com.ehualu.data.common.util.MessageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;

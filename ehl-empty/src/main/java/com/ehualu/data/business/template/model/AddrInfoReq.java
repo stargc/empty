@@ -1,4 +1,4 @@
-package com.ehualu.data.business.addr.model;
+package com.ehualu.data.business.template.model;
 
 import javax.validation.constraints.NotBlank;
 

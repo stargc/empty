@@ -1,6 +1,7 @@
 package com.ehualu.data.common.exception;
 
 import com.ehualu.data.common.model.Message;
+import com.example.empty.infrastructure.exception.ThirdPatryException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,7 @@ public class EhlExceptionHandler {
 		logger.error(ExceptionUtils.getStackTrace(e));
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
-		message.setMessage(e.getMessage());
+		message.setError(e.getMessage());
 		return message;
 	}
 
@@ -38,7 +39,7 @@ public class EhlExceptionHandler {
 	public Object handleBindException(HttpServletRequest request, BindException e) {
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
-		message.setMessage(getErrorMsg(e.getBindingResult()));
+		message.setError(getErrorMsg(e.getBindingResult()));
 		logger.error(String.format("请求接口%s报错[%s]",request.getRequestURI(),getErrorMsg(e.getBindingResult())));
 		return message;
 	}
@@ -52,7 +53,7 @@ public class EhlExceptionHandler {
 	public Object handleParmValidationException(HttpServletRequest request, MethodArgumentNotValidException e) {
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
-		message.setMessage(getErrorMsg(e.getBindingResult()));
+		message.setError(getErrorMsg(e.getBindingResult()));
 		logger.error(String.format("请求接口%s报错[%s]",request.getRequestURI(),getErrorMsg(e.getBindingResult())));
 		return message;
 	}
@@ -62,7 +63,7 @@ public class EhlExceptionHandler {
 	public Object handleValParmException(HttpServletRequest request, ValParmException e) {
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
-		message.setMessage(e.getMessage());
+		message.setError(e.getMessage());
 		logger.error(String.format("请求接口%s报错[%s]",request.getRequestURI(),e.getMessage()));
 		return message;
 	}
@@ -72,7 +73,7 @@ public class EhlExceptionHandler {
 	public Object handleThirdPatryException(HttpServletRequest request, ThirdPatryException e) {
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
-		message.setMessage(e.getMessage());
+		message.setError(e.getMessage());
 		logger.error(String.format("请求接口%s报错[%s]",request.getRequestURI(),e.getMessage()));
 		return message;
 	}

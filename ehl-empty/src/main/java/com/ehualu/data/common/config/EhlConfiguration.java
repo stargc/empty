@@ -1,4 +1,4 @@
-package com.ehualu.data;
+package com.ehualu.data.common.config;
 
 import javax.sql.DataSource;
 

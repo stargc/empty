@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ehualu.data.business.addr.dao.AddrInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.ehualu.data.business.addr.model.AddrInfo" >
+<mapper namespace="com.ehualu.data.business.template.dao.AddrInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ehualu.data.business.template.model.AddrInfo" >
     <result column="addr_id" property="addrId" jdbcType="CHAR" />
     <result column="town_code" property="townCode" jdbcType="VARCHAR" />
     <result column="committee_code" property="committeeCode" jdbcType="VARCHAR" />
@@ -75,7 +75,7 @@
     addr_id, town_code, committee_code, area_code, house_name, create_user_id, create_time, 
     update_user_id, update_time, addr_name
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ehualu.data.business.addr.model.AddrInfoExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ehualu.data.business.template.model.AddrInfoExample" >
     select
     <if test="distinct" >
       distinct
@@ -89,13 +89,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.ehualu.data.business.addr.model.AddrInfoExample" >
+  <delete id="deleteByExample" parameterType="com.ehualu.data.business.template.model.AddrInfoExample" >
     delete from t_addr_info
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.ehualu.data.business.addr.model.AddrInfo" >
+  <insert id="insert" parameterType="com.ehualu.data.business.template.model.AddrInfo" >
     insert into t_addr_info (addr_id, town_code, committee_code, 
       area_code, house_name, create_user_id, 
       create_time, update_user_id, update_time, 
@@ -105,7 +105,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{addrName,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.ehualu.data.business.addr.model.AddrInfo" >
+  <insert id="insertSelective" parameterType="com.ehualu.data.business.template.model.AddrInfo" >
     insert into t_addr_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="addrId != null" >
@@ -172,7 +172,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.ehualu.data.business.addr.model.AddrInfoExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.ehualu.data.business.template.model.AddrInfoExample" resultType="java.lang.Integer" >
     select count(*) from t_addr_info
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />

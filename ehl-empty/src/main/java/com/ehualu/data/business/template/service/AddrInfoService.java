@@ -1,10 +1,10 @@
-package com.ehualu.data.business.addr.service;
+package com.ehualu.data.business.template.service;
 
-import com.ehualu.data.business.addr.dao.AddrInfoMapper;
-import com.ehualu.data.business.addr.model.AddrInfo;
-import com.ehualu.data.business.addr.model.AddrInfoExample;
-import com.ehualu.data.business.addr.model.AddrInfoReq;
-import com.ehualu.data.business.addr.model.AddrInfoResp;
+import com.ehualu.data.business.template.dao.AddrInfoMapper;
+import com.ehualu.data.business.template.model.AddrInfo;
+import com.ehualu.data.business.template.model.AddrInfoExample;
+import com.ehualu.data.business.template.model.AddrInfoReq;
+import com.ehualu.data.business.template.model.AddrInfoResp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

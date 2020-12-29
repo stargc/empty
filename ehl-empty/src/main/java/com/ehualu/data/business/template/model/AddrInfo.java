@@ -1,4 +1,4 @@
-package com.ehualu.data.business.addr.model;
+package com.ehualu.data.business.template.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;

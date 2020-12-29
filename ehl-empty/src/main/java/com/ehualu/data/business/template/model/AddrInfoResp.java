@@ -1,4 +1,4 @@
-package com.ehualu.data.business.addr.model;
+package com.ehualu.data.business.template.model;
 
 /**
  * @author created by gouyifan on 2020/3/13
