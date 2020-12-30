@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Component
+//@Component
 public class LoggingFilter extends OncePerRequestFilter {
 
     private Logger logger = LoggerFactory.getLogger(LoggingFilter.class);

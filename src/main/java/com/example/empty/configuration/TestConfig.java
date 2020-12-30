@@ -7,8 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
-import java.io.IOException;
-
 /**
  * @author created by guanchen on 2020/11/24 8:56
  */
@@ -20,13 +18,13 @@ public class TestConfig {
     private String coreSite;
 
     @Bean
-    @ConditionalOnProperty(name = "stdp.security.enable", havingValue = "true")
     public void kerberosAuth(){
         log.info("do first");
     }
 
     @Bean
     @DependsOn("kerberosAuth")
+    @ConditionalOnProperty(name = "system_testValue", havingValue = "dev")
     public void hbaseTemplate(){
         log.info("do second");
     }

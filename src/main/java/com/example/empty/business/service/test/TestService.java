@@ -68,41 +68,6 @@ public class TestService {
         return response;
     }
 
-    @Cacheable(value = "IZUUL", key = "#key")
-    public String cacheTest(String key) {
-        log.info("cacheIZUUL()方法执行");
-        return getCache(key);
-    }
-
-    @CachePut(value = "IZUUL", key = "#key")
-    public String cachePutTest(String key) {
-        log.info("cachePutIZUUL()方法执行");
-        return "cachePutIZUUL--" + key;
-    }
-    private String getCache(String key) {
-        try {
-            log.info("getCache()方法执行");
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return key;
-    }
-
-    public String caffeineTest(String key){
-        LoadingCache<String, String> build = Caffeine.newBuilder().refreshAfterWrite(1, TimeUnit.MINUTES)
-                .build(new CacheLoader<String, String>() {
-                    @Override
-                    public String load(String key)  {
-                        return "aaa";
-                    }
-                });
-        String a = build.get(key);
-        build.refresh(key);
-        build.invalidateAll();
-        return a;
-    }
-
     @Async
     public void testAsync(int i) {
         System.out.println(i + "异步线程id：" + Thread.currentThread().getId() + " start");

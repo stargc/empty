@@ -45,24 +45,6 @@ public class TestController {
         return testService.restTest(phone);
     }
 
-    @GetMapping("/cacheTest/{key}")
-    public String cacheTest(@PathVariable String key) {
-        log.info("do cacheTest");
-        return testService.cacheTest(key);
-    }
-
-    @GetMapping("/cachePutTest/{key}")
-    public String cachePutTest(@PathVariable String key) {
-        log.info("do cachePutTest");
-        return testService.cachePutTest(key);
-    }
-
-    @GetMapping("/caffeineTest/{key}")
-    public String caffeineTest(@PathVariable String key) {
-        log.info("do caffeineTest");
-        return testService.caffeineTest(key);
-    }
-
     @GetMapping("/testAsync")
     public BaseResponse testAsync() {
         for (int i = 0; i < 10; i++) {

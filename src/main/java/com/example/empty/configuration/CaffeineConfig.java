@@ -50,7 +50,7 @@ public class CaffeineConfig {
                             .initialCapacity(100)
                             // maximumSize用来控制cache的最大缓存数量
                             .maximumSize(200)
-                            .expireAfterWrite(cacheType.getExpires(), TimeUnit.SECONDS)
+                            .expireAfterWrite(cacheType.getExpires(), TimeUnit.MINUTES)
                             .build()));
         }
         cacheManager.setCaches(caffeineCaches);
