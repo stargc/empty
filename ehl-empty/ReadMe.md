@@ -6,4 +6,6 @@
 4. 修改pom文件 groupId， artifactId，name（12,13,14 行）
 5. 修改pom文件 打包后文件名称（114行）
 6. 修改logback.xml 中log名称
+7. 修改src/bin目录下 start.sh 中appname（4行） 和jar（5行）内容 为第5步配置的内容
+8. 修改src/bin目录下 stop.sh 中appname(4行)内容 为第5步配置的内容
 

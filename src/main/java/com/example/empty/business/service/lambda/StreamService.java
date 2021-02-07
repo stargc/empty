@@ -51,6 +51,7 @@ public class StreamService {
                 , BigBean.build("a", "bb")
                 , BigBean.build("c", "cc"));
         Map<String, BigBean.Project> map = beanList.stream().collect(Collectors.toMap(BigBean::getName, bean -> bean.getProject(),(k1, k2)->k1));
+        Map<String, BigBean> map1 = beanList.stream().collect(Collectors.toMap(BigBean::getName, bean -> bean,(k1, k2)->k1));
 
         map.forEach((k,v) -> {
             System.out.println(String.format("key = %s,value=%s",k,v.getDiscoverCenter().getDiscoverName()));
