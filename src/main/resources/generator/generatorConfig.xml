@@ -22,6 +22,7 @@
                         connectionURL="jdbc:mysql://172.38.50.247:3306/db_population_collection"
                         userId="root"
                         password="Ehl@1234">
+            <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
 
         <javaTypeResolver>
