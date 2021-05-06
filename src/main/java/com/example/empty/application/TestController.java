@@ -4,14 +4,17 @@ import com.example.empty.business.common.vo.BaseResponse;
 import com.example.empty.business.service.test.TestService;
 import com.example.empty.business.service.activeMQ.TestMQProducer;
 import com.example.empty.business.service.test.vo.ValidatorRequest;
+import com.example.empty.infrastructure.util.VerifyCodeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
+import java.io.IOException;
 
 @Slf4j
 @Validated
@@ -59,5 +62,9 @@ public class TestController {
         return new BaseResponse(BaseResponse.SUCCESS,"SUCCESS");
     }
 
+    @GetMapping("genCodeImg")
+    public void genCodeImg(@RequestParam String code, HttpServletResponse response) throws IOException {
+        VerifyCodeUtils.outputImage(200,80,response.getOutputStream(),code);
+    }
 
 }
