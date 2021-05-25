@@ -1,4 +1,4 @@
-package com.example.empty.infrastructure.util;
+package com.example.empty.configuration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
