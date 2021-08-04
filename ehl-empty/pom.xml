@@ -82,6 +82,10 @@
             <scope>runtime</scope>
         </dependency>
         <!-- 生成mybatis mapper ** end-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
     </dependencies>
     <profiles>
         <profile>

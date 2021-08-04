@@ -7,9 +7,9 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>../logs/empty.log</file>
+        <file>logs/info.log</file>
         　　　　　<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        　　　　　　　<fileNamePattern>../logs/empty.%d{yyyy-MM-dd}.log</fileNamePattern>
+        　　　　　　　<fileNamePattern>logs/info.%d{yyyy-MM-dd}.log</fileNamePattern>
         　　　　　　　<maxHistory>7</maxHistory>
         　　　　　</rollingPolicy>
         　　　　　<encoder>
@@ -21,9 +21,9 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
         </filter>
-        <file>../logs/error.log</file>
+        <file>logs/error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>../logs/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>logs/error.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>7</maxHistory>
         </rollingPolicy>
         <encoder>
