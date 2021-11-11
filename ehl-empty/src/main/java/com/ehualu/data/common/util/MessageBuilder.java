@@ -10,6 +10,17 @@ public class MessageBuilder {
 			message = new Message<T>();
 		}
 
+		public Builder(boolean isSuccess) {
+			message = new Message<T>();
+			if (isSuccess) {
+				message.setStatus(Message.Code.OK);
+				message.setError("SUCCESS");
+			} else {
+				message.setStatus(Message.Code.ERROR);
+				message.setErrorCode(Message.Code.ERRORCODE);
+			}
+		}
+
 		public Builder<T> setStatus(int status) {
 			message.setStatus(status);
 			return this;

@@ -30,7 +30,11 @@ public class EhlExceptionHandler {
 		logger.error(ExceptionUtils.getStackTrace(e));
 		Message<String> message = new Message<>();
 		message.setStatus(Message.Code.ERROR);
+		message.setErrorCode(Message.Code.ERRORCODE);
 		message.setError(e.getMessage());
+		if (StringUtils.isBlank(e.getMessage())){
+			message.setError(e.toString());
+		}
 		return message;
 	}
 
