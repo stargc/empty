@@ -29,18 +29,18 @@ public class DAGTest {
     public static void main(String[] args) {
 
         List<DAGNode> nodeList = new ArrayList<>();
-        nodeList.add(new DAGNode("1.1"));
-        nodeList.add(new DAGNode("1.2"));
-        nodeList.add(new DAGNode("1.3"));
-        nodeList.add(new DAGNode("1.4"));
-        nodeList.add(new DAGNode("2.1"));
-        nodeList.add(new DAGNode("2.2"));
-        nodeList.add(new DAGNode("2.3"));
-        nodeList.add(new DAGNode("3.1"));
-        nodeList.add(new DAGNode("4.1"));
-        nodeList.add(new DAGNode("5.1"));
-        nodeList.add(new DAGNode("5.2"));
-        nodeList.add(new DAGNode("6.1"));
+        nodeList.add(new DAGNode("1.1",5));
+        nodeList.add(new DAGNode("1.2",5));
+        nodeList.add(new DAGNode("1.3",3));
+        nodeList.add(new DAGNode("1.4",2));
+        nodeList.add(new DAGNode("2.1",5));
+        nodeList.add(new DAGNode("2.2",3));
+        nodeList.add(new DAGNode("2.3",2));
+        nodeList.add(new DAGNode("3.1",5));
+        nodeList.add(new DAGNode("4.1",5));
+        nodeList.add(new DAGNode("5.1",5));
+        nodeList.add(new DAGNode("5.2",6));
+        nodeList.add(new DAGNode("6.1",1));
 
         List<DAGEdge> edgeList = new ArrayList<>();
         edgeList.add(new DAGEdge("1.1","2.1"));
@@ -119,11 +119,13 @@ public class DAGTest {
     //节点
     static class DAGNode implements Runnable{
         private String name;
+        private int sleep;
         private CountDownLatch startCondition;
         private List<CountDownLatch> endConditions = new ArrayList<>();
 
-        public DAGNode(String name) {
+        public DAGNode(String name,int sleep) {
             this.name = name;
+            this.sleep = sleep;
         }
 
         @Override
@@ -135,8 +137,8 @@ public class DAGTest {
                 }
                 System.out.println(MessageFormat.format("节点[{0}]开始运行",name));
                 //TODO
-                TimeUnit.SECONDS.sleep(RandomUtils.nextInt(3,6));
-//                System.out.println(MessageFormat.format("节点[{0}]运行结束",name));
+                TimeUnit.SECONDS.sleep(sleep);
+                System.out.println(MessageFormat.format("节点[{0}]运行结束",name));
             }catch (InterruptedException e){
                 System.out.println(MessageFormat.format("节点[{0}]被中断",name));
             } finally {
