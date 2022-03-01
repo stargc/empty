@@ -1,9 +1,10 @@
 package com.example.empty.business.service.test;
 
-import org.apache.commons.lang3.RandomUtils;
-
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -50,6 +51,7 @@ public class DAGTest {
         edgeList.add(new DAGEdge("2.1","3.1"));
         edgeList.add(new DAGEdge("2.2","3.1"));
         edgeList.add(new DAGEdge("3.1","4.1"));
+        edgeList.add(new DAGEdge("2.3","4.1"));
         edgeList.add(new DAGEdge("4.1","5.1"));
         edgeList.add(new DAGEdge("4.1","5.2"));
         edgeList.add(new DAGEdge("5.1","6.1"));
