@@ -24,7 +24,6 @@ public class BaseResponse {
     /** 第三方服务异常*/
     public static final String FAILED_THIRD_PARTY = "-4";
 
-
     /**返回代码*/
     private String resultCode;
     /**返回值描述*/
