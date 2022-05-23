@@ -2,3 +2,5 @@
 /.idea/**
 
 **/target/**
+/ehl-empty/.idea/**
+/ehl-empty/logs/*.log

@@ -1,6 +1,7 @@
-package com.ehualu.data.business.test;
+package com.ehualu.data.business.monitor;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author created by guanchen on 2020/7/22 10:03
  */
-@Slf4j
 @RestController
 public class HealthController {
+    private static Logger log = LoggerFactory.getLogger(HealthController.class);
 
     @GetMapping("healthCheck")
     public void healthCheck(){
