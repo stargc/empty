@@ -8,7 +8,7 @@
 	<includeBaseDirectory>true</includeBaseDirectory>
 	<fileSets>
 		<fileSet>
-			<directory>src/main/resources/config</directory>
+			<directory>src/main/resources/config/${build.profile.id}</directory>
 			<outputDirectory>config</outputDirectory>
 		</fileSet>
 		<fileSet>
