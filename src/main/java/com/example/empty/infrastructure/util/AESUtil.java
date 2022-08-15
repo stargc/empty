@@ -71,9 +71,21 @@ public class AESUtil {
     public static void main(String[] args) throws Exception {
         String content = "1564a6*/123";
         System.out.println("content:" + content);
+
+        long encryptStartTime = System.currentTimeMillis();
         String s1 = AESUtil.encrypt(content);
-        System.out.println("s1:" + s1);
-        System.out.println("s2:" + AESUtil.decrypt(s1));
+        long encryptTime = System.currentTimeMillis();
+
+        System.out.println("加密用时：" + (encryptTime - encryptStartTime));
+        System.out.println("加密结果:" + s1);
+
+        long decryptStartTime = System.currentTimeMillis();
+        String s2 = AESUtil.decrypt(s1);
+        long decryptTime = System.currentTimeMillis();
+
+        System.out.println("解密用时：" + (decryptTime - decryptStartTime));
+        System.out.println("解密结果:" + s2);
+
 
     }
 

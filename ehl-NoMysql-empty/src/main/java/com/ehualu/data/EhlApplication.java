@@ -3,8 +3,8 @@ package com.ehualu.data;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
-public class SmallFileServiceApplication {
+public class EHLApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(SmallFileServiceApplication.class, args);
+		SpringApplication.run(EHLApplication.class, args);
 	}
 }
